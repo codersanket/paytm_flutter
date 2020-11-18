@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="868cf4e1-bf25-493d-a020-285b57bebaae" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +55,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="530" y="235" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605722221865">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="530" y="235" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1605722221865" />
     <state width="1476" height="221" key="GridCell.Tab.0.bottom" timestamp="1605719450935">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

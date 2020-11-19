@@ -1,8 +1,13 @@
 # Paytmkaro
 A flutter plugin to integrate a Paytms All in one SDK in flutter.
-Right now its only support Andriod and only works with production keys.
+
+ Right now its only support Andriod and only works with production keys.
 
 ## Getting Started
+1. [Prerequisites](#prerequisites)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Server Side Code](#servercode)
 
 This flutter plugin is a wrapper around Paytm's Android All in one SDKs.
 
@@ -33,15 +38,15 @@ paytmkaro: ^0.0.1
 
 Follow [this](https://github.com/codersanket/paytm_flutter/issues) for more details.
 
-## Usage
+### Usage
 
 Sample code to integrate can be found in [example/lib/main.dart](example/lib/main.dart).
 
 
-#### Create PaytmKaro instance
+#### Create PaytmKaro Object
 
 ```dart
-_paytmKaro=PaytmKaro();
+PaytmKaro _paytmKaro=PaytmKaro();
 ```
 
 #### StartTransaction
@@ -71,11 +76,12 @@ Pass the required Arguments in startTransection
     }
 
 ```
-get the serever side code from [here](#servercode)
+
+Get the serever side code from [here](#servercode)
 
 #### Error Codes
 
-| eesultCode        | resultMsg                                                            |
+| resultCode        | resultMsg                                                            |
 | ----------------- | -------------------------------------------------------------------- |
 | 07                | Txn Success                                                          |
 | 227               | Transection declines by bank                                         |
@@ -101,7 +107,7 @@ There are much more result codes you can find them here:[https://developer.paytm
 [CHECKSUMHASH] => glEBpHd9yJ5g9ReTNkpjfFsvBEb1aYIdQN1mSCbMVNcn6CGDr3UUf3psseqKGPswoU0Xdl6g9P9Jc6U9Q9Ol/JuwcudfMLRgaUjj2rsAl/8=
 ```
 
-### PaymentFailureResponse
+#### PaymentFailureResponse
 ```
 [ORDERID] => ORDERID_98765
 [MID] => INTEGR7769XXXXXX9383
@@ -118,8 +124,11 @@ There are much more result codes you can find them here:[https://developer.paytm
 [CHECKSUMHASH] => glEBpHd9yJ5g9ReTNkpjfFsvBEb1aYIdQN1mSCbMVNcn6CGDr3UUf3psseqKGPswoU0Xdl6g9P9Jc6U9Q9Ol/JuwcudfMLRgaUjj2rsAl/8=
 ```
 
-### ServerCode
+## ServerCode
 It's used to Initiate Transaction from server. 
 You can find the Server code [here](https://github.com/codersanket/Paytm-Server-code).
 
 Also check the offical documnts from [paytm](https://developer.paytm.com/docs/all-in-one-sdk/hybrid-apps/flutter/?ref=allInOneMerchantIntegration) 
+
+### Note
+It's only work with Production keys only 

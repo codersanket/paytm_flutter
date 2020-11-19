@@ -42,8 +42,18 @@ Follow [this](https://github.com/codersanket/paytm_flutter/issues) for more deta
 
 Sample code to integrate can be found in [example/lib/main.dart](example/lib/main.dart).
 
+#### Flow
+App Invoke Flow: In case the Paytm app is installed, it will be launched to complete the transaction and give the response back to your app.
+
+Redirection Flow: In case the Paytm app is not installed, All-in-One SDK will open a web-view to process transaction and give the response back to your app.
+
+
+<img src="https://developer-assets.paytm.com/sftp/upload/cmsuploads/demo_app_invoke_b7b00ee0fa.png" width="600" height="600">
+
 
 #### Create PaytmKaro Object
+
+##### Before Starting Please upload [server side code](#servercode) and don't make any changes in that.
 
 ```dart
 PaytmKaro _paytmKaro=PaytmKaro();
@@ -55,7 +65,7 @@ Pass the required Arguments in startTransection
 // Platform messages may fail, so we use a try/catch.
     try {
       PaytmResponse paymentResponse = await _paytmKaro.startTransaction(
-        url: url where we get a txn id,
+        url: serverside code url e.g. https://arcane-temple-61754.herokuapp.com/intiateTansection.php,
         mid: your Production merchant id,
         mkey: your merchant key,
         customerId:customer id (must be unique for every customer),
@@ -124,8 +134,15 @@ There are much more result codes you can find them here:[https://developer.paytm
 [CHECKSUMHASH] => glEBpHd9yJ5g9ReTNkpjfFsvBEb1aYIdQN1mSCbMVNcn6CGDr3UUf3psseqKGPswoU0Xdl6g9P9Jc6U9Q9Ol/JuwcudfMLRgaUjj2rsAl/8=
 ```
 ### Screenshot
-![Trans](https://i.imgur.com/3vSZA8g.gifv)
+#### Payment Screen
+<img src="https://i.imgur.com/sN2Re0b.jpg" width="300" height="500">
 
+#### Transection Successful
+<img src="https://i.imgur.com/tDsFMU4.jpg" width="300" height="500">
+
+
+#### Transection Failed
+<img src="https://i.imgur.com/sRrmPE9.jpg" width="300" height="500">
 
 ## ServerCode
 It's used to Initiate Transaction from server. 

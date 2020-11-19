@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:paytmkaro/paytmkaro.dart';
 
 
+
 void main() {
   runApp(MaterialApp(home: MyApp()));
 }
@@ -23,20 +24,20 @@ class _MyAppState extends State<MyApp> {
     String orderId=DateTime.now().microsecondsSinceEpoch.toString();
     // Platform messages may fail, so we use a try/catch.
     try {
-      PaytmResponse paymentResponse = await _paytmKaro.startTransaction(
+      Paytmresponse paymentResponse = await _paytmKaro.startTransaction(
         url: "https://arcane-temple-61754.herokuapp.com/intiateTansection.php",
-        mid: "zlsjBq52825503339453",
-        mkey: "l7qAI&Uh#OyF0Bg9",
-        customerId:"CUST_456784",
-        amount: '1',
+        mid: "Your_Merchant_id",
+        mkey: "Your_Merchant_Key",
+        customerId:"CUST_ID",
+        amount: 'AMOUNT',
         orderId: orderId,
       );
 
       if(paymentResponse.status=="TXN_SUCCESS"){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>txnSuccessful(paytmResponse: paymentResponse,)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>txnSuccessful(PaytmResponse: paymentResponse,)));
       }
       else if(paymentResponse.status=="TXN_FAILURE"){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>txnFailed(paytmResponse: paymentResponse,)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>txnFailed(PaytmResponse: paymentResponse,)));
       }
     } 
     catch(e){
@@ -66,8 +67,8 @@ class _MyAppState extends State<MyApp> {
 
 
 class txnSuccessful extends StatelessWidget {
-  final PaytmResponse paytmResponse;
-  const txnSuccessful({Key key, this.paytmResponse}) : super(key: key);
+  final Paytmresponse PaytmResponse;
+  const txnSuccessful({Key key, this.PaytmResponse}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,8 +77,8 @@ class txnSuccessful extends StatelessWidget {
         children: [
           Text("Transaction Success",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
           Lottie.asset("assets/payment-success.json",height: MediaQuery.of(context).size.height*0.5,repeat: true),
-          Text("Payment Status:${paytmResponse.status}",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),),
-          Text("Bank TransactionId:${paytmResponse.banktxnid}",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),textAlign: TextAlign.center,)
+          Text("Payment Status:${PaytmResponse.status}",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),),
+          Text("Bank TransactionId:${PaytmResponse.banktxnid}",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),textAlign: TextAlign.center,)
 
         ],
       ),
@@ -87,9 +88,9 @@ class txnSuccessful extends StatelessWidget {
 }
 
 class txnFailed extends StatelessWidget {
- final PaytmResponse paytmResponse;
+ final Paytmresponse PaytmResponse;
 
-  const txnFailed({Key key, this.paytmResponse}) : super(key: key);
+  const txnFailed({Key key, this.PaytmResponse}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +101,7 @@ class txnFailed extends StatelessWidget {
           Text("Transaction Failed",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
           Container(
               child: Lottie.asset("assets/payment-failed.json",height: MediaQuery.of(context).size.height*0.5,repeat: true)),
-          Text(paytmResponse.respmsg,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),textAlign: TextAlign.center,)
+          Text(PaytmResponse.respmsg,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),textAlign: TextAlign.center,)
         ],
       ),
     );

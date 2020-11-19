@@ -8,8 +8,8 @@ import 'package:http/http.dart';
 
 class PaytmKaro {
   MethodChannel _channel =  MethodChannel('WAP');
-  PaytmResponse paytmResponse;
-  Future<PaytmResponse>  startTransaction({String url,@required String mid,@required String mkey,@required String amount,@required String orderId,@required String customerId}) async {
+  Paytmresponse PaytmResponse;
+  Future<Paytmresponse>  startTransaction({String url,@required String mid,@required String mkey,@required String amount,@required String orderId,@required String customerId}) async {
     Response resp=await post(url,body:{
       "mid":mid,
       "ORDERID":orderId,
@@ -18,7 +18,7 @@ class PaytmKaro {
       "custId":customerId
     });
     print(resp.body);
-    inTransactionResponse res =inTransactionResponse.fromJson(jsonDecode(resp.body));
+    Transectionresponse res =Transectionresponse.fromJson(jsonDecode(resp.body));
 
 
     var arguments = <String, dynamic>{
@@ -31,9 +31,9 @@ class PaytmKaro {
     };
     try {
       var paymentResult=await _channel.invokeMethod("startTransaction",arguments);
-      paytmResponse=PaytmResponse.fromJson(jsonDecode(paymentResult));
-      print(paytmResponse);
-      return paytmResponse;
+      PaytmResponse=Paytmresponse.fromJson(jsonDecode(paymentResult));
+      print(Paytmresponse);
+      return PaytmResponse;
     } on PlatformException catch (e) {
       print(e);
       throw e.message;
@@ -45,16 +45,16 @@ class PaytmKaro {
 
 // To parse this JSON data, do
 //
-//     final inTransactionResponse = inTransactionResponseFromJson(jsonString);
+//     final Transectionresponse = TransectionresponseFromJson(jsonString);
 
 
 
-inTransactionResponse inTransactionResponseFromJson(String str) => inTransactionResponse.fromJson(json.decode(str));
+Transectionresponse TransectionresponseFromJson(String str) => Transectionresponse.fromJson(json.decode(str));
 
-String inTransactionResponseToJson(inTransactionResponse data) => json.encode(data.toJson());
+String TransectionresponseToJson(Transectionresponse data) => json.encode(data.toJson());
 
-class inTransactionResponse {
-  inTransactionResponse({
+class Transectionresponse {
+  Transectionresponse({
     this.head,
     this.body,
   });
@@ -62,7 +62,7 @@ class inTransactionResponse {
   Head head;
   Body body;
 
-  factory inTransactionResponse.fromJson(Map<String, dynamic> json) => inTransactionResponse(
+  factory Transectionresponse.fromJson(Map<String, dynamic> json) => Transectionresponse(
     head: Head.fromJson(json["head"]),
     body: Body.fromJson(json["body"]),
   );
@@ -151,12 +151,12 @@ class Head {
 
 
 
-List<PaytmResponse> PaytmResponseFromJson(String str) => List<PaytmResponse>.from(json.decode(str).map((x) => PaytmResponse.fromJson(x)));
+List<Paytmresponse> PaytmresponseFromJson(String str) => List<Paytmresponse>.from(json.decode(str).map((x) => Paytmresponse.fromJson(x)));
 
-String PaytmResponseToJson(List<PaytmResponse> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String PaytmresponseToJson(List<Paytmresponse> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class PaytmResponse {
-  PaytmResponse({
+class Paytmresponse {
+  Paytmresponse({
     this.bankname,
     this.banktxnid,
     this.checksumhash,
@@ -188,7 +188,7 @@ class PaytmResponse {
   DateTime txndate;
   String txnid;
 
-  factory PaytmResponse.fromJson(Map<String, dynamic> json) => PaytmResponse(
+  factory Paytmresponse.fromJson(Map<String, dynamic> json) => Paytmresponse(
     bankname: json["BANKNAME"],
     banktxnid: json["BANKTXNID"],
     checksumhash: json["CHECKSUMHASH"],

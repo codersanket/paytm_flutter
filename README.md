@@ -71,6 +71,7 @@ Pass the required Arguments in startTransection
     }
 
 ```
+get the serever side code from [here](#servercode)
 
 #### Error Codes
 
@@ -119,3 +120,6 @@ There are much more result codes you can find them here:[https://developer.paytm
 
 ### ServerCode
 It's used to Initiate Transaction from server. 
+You can find the Server code [here](https://github.com/codersanket/Paytm-Server-code).
+
+Also check the offical documnts from [paytm](https://developer.paytm.com/docs/all-in-one-sdk/hybrid-apps/flutter/?ref=allInOneMerchantIntegration) 

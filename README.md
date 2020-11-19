@@ -1,6 +1,6 @@
-# paytmkaro
-
-A new Flutter plugin.
+# Paytmkaro
+A flutter plugin to integrate a Paytms All in one SDK in flutter.
+Right now its only support Andriod and only works with production keys.
 
 ## Getting Started
 

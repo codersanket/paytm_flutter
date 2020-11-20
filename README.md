@@ -1,7 +1,9 @@
 # Paytmkaro
 A flutter plugin to integrate a Paytms All in one SDK in flutter.
 
- Right now its only support Andriod and only works with production keys.
+ Right now its only support Android.
+ 
+ If you want to use this for testing make sure that paytm app is not installed in device. 
 
 ## Getting Started
 1. [Prerequisites](#prerequisites)
@@ -25,7 +27,7 @@ To know more about our SDKs and how to link them within the projects, refer to t
 4. Calling Initiate  <a href="https://dashboard.paytm.com/" target="_blank">initiate Transaction Api</a> from your backend to generate Transaction Token.
 
 ## Installation
- The plugin is avilable on pub [https://pub.dev/packages/paytmkaro](https://pub.dev/packages/paytmkaro)
+ The plugin is available on pub [https://pub.dev/packages/paytmkaro](https://pub.dev/packages/paytmkaro)
  
  Add this to `dependencies` in your app's `pubspec.yaml`
  
@@ -53,48 +55,62 @@ Redirection Flow: In case the Paytm app is not installed, All-in-One SDK will op
 
 #### Create PaytmKaro Object
 
-##### Before Starting Please upload [server side code](#servercode) and don't make any changes in that.
+##### Before Starting Please upload [server side code](#servercode) and please don't make any changes in that.
 
 ```dart
 PaytmKaro _paytmKaro=PaytmKaro();
 ```
 
 #### StartTransaction
-Pass the required Arguments in startTransection
+Pass the required Arguments in startTransaction
 ```dart
-// Platform messages may fail, so we use a try/catch.
+  startTheTransaction(BuildContext context) async {
+    // Transaction May be fail, so we use a try/catch.
     try {
-      PaytmResponse paymentResponse = await _paytmKaro.startTransaction(
-        url: serverside code url e.g. https://arcane-temple-61754.herokuapp.com/intiateTansection.php,
-        mid: your Production merchant id,
-        mkey: your merchant key,
-        customerId:customer id (must be unique for every customer),
-        amount: transection amount,
-        orderId: Order Id (Order id must be unique Everytime for every order),
+      Paytmresponse paymentResponse = await _paytmKaro.startTransaction(
+        url: "SERVER SIDE URL",
+        mid: "merchant_Id",
+        isStaging: "For testing use true for production false ",
+        mkey: "merchant_key",
+        customerId: "customer_Id",
+        amount: "amount",
+        orderId: "order_Id",
       );
-
-      if(paymentResponse.status=="TXN_SUCCESS"){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>txnSuccessful(paytmResponse: paymentResponse,)));
+      if (paymentResponse.status == "TXN_SUCCESS") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => txnSuccessful(
+              PaytmResponse: paymentResponse,
+            ),
+          ),
+        );
+      } else if (paymentResponse.status == "TXN_FAILURE") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => txnFailed(
+              PaytmResponse: paymentResponse,
+            ),
+          ),
+        );
       }
-      else if(paymentResponse.status=="TXN_FAILURE"){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>txnFailed(paytmResponse: paymentResponse,)));
-      }
-    } 
-    catch(e){
+    } catch (e) {
       print(e);
-      key.currentState.showSnackBar(SnackBar(content: Text(e.toString())));      // platformVersion = 'Failed to get platform version.'
+      key.currentState.showSnackBar(SnackBar(content: Text(e.toString())));
     }
+  }
 
 ```
 
-Get the serever side code from [here](#servercode)
+Get the server side code from [here](#servercode)
 
 #### Error Codes
 
 | resultCode        | resultMsg                                                            |
 | ----------------- | -------------------------------------------------------------------- |
 | 07                | Txn Success                                                          |
-| 227               | Transection declines by bank                                         |
+| 227               | Transaction declines by bank                                         |
 | 235               | Wallet balance Insufficient, bankName=WALLET                         |
 
 There are much more result codes you can find them here:[https://developer.paytm.com/docs/api/v3/transaction-status-api/?ref=payments](here)
@@ -134,21 +150,15 @@ There are much more result codes you can find them here:[https://developer.paytm
 [CHECKSUMHASH] => glEBpHd9yJ5g9ReTNkpjfFsvBEb1aYIdQN1mSCbMVNcn6CGDr3UUf3psseqKGPswoU0Xdl6g9P9Jc6U9Q9Ol/JuwcudfMLRgaUjj2rsAl/8=
 ```
 ### Screenshot
-#### Payment Screen
-<img src="https://i.imgur.com/sN2Re0b.jpg" width="300" height="500">
+<img src="txnSucess.gif" width="300" height="600">
 
-#### Transection Successful
-<img src="https://i.imgur.com/tDsFMU4.jpg" width="300" height="500">
+<img src="txnFailure.gif" width="300" height="600">
 
-
-#### Transection Failed
-<img src="https://i.imgur.com/sRrmPE9.jpg" width="300" height="500">
 
 ## ServerCode
 It's used to Initiate Transaction from server. 
 You can find the Server code [here](https://github.com/codersanket/Paytm-Server-code).
 
-Also check the offical documnts from [paytm](https://developer.paytm.com/docs/all-in-one-sdk/hybrid-apps/flutter/?ref=allInOneMerchantIntegration) 
+Also check the official documents from [paytm](https://developer.paytm.com/docs/all-in-one-sdk/hybrid-apps/flutter/?ref=allInOneMerchantIntegration) 
 
-### Note
-It's only work with Production keys only. 
+For any help [Sanket Babar](sanketbabar.me)

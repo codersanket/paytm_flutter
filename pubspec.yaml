@@ -1,5 +1,5 @@
 name: paytmkaro
-description: A plugin for adding Paytm Payment Gatway in Flutter.
+description: Plugin for Adding Paytm Payment Gatway in Flutter( Supports Staging if and only if Paytm app is not installed on device).
 version: 1.0.1
 homepage: https://github.com/codersanket/paytm_flutter
 
@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.2
+  device_apps: ^1.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

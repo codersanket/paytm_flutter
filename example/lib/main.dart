@@ -1,11 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:paytmkaro/paytmkaro.dart';
 
-
-
 void main() {
-  runApp(MaterialApp(home: MyApp()));
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -14,57 +16,78 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  GlobalKey<ScaffoldState> key=GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
 
+  PaytmKaro _paytmKaro = PaytmKaro();
+  bool loading=false;
 
-  PaytmKaro _paytmKaro=PaytmKaro();
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  initPlatformState(BuildContext context) async {
-    String orderId=DateTime.now().microsecondsSinceEpoch.toString();
-    // Platform messages may fail, so we use a try/catch.
+  // Start The Transection
+  startTheTransaction(BuildContext context) async {
+    // Transaction May be fail, so we use a try/catch.
     try {
       Paytmresponse paymentResponse = await _paytmKaro.startTransaction(
-        url: "https://arcane-temple-61754.herokuapp.com/intiateTansection.php",
-        mid: "Your_Merchant_id",
-        mkey: "Your_Merchant_Key",
-        customerId:"CUST_ID",
-        amount: 'AMOUNT',
-        orderId: orderId,
+        url: "SERVER SIDE URL",
+        mid: "merchant_Id",
+        isStaging: "For testing use true for production false ",
+        mkey: "merchant_key",
+        customerId: "customer_Id",
+        amount: "amount",
+        orderId: "order_Id",
       );
-
-      if(paymentResponse.status=="TXN_SUCCESS"){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>txnSuccessful(PaytmResponse: paymentResponse,)));
+      if (paymentResponse.status == "TXN_SUCCESS") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => txnSuccessful(
+              PaytmResponse: paymentResponse,
+            ),
+          ),
+        );
+      } else if (paymentResponse.status == "TXN_FAILURE") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => txnFailed(
+              PaytmResponse: paymentResponse,
+            ),
+          ),
+        );
       }
-      else if(paymentResponse.status=="TXN_FAILURE"){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>txnFailed(PaytmResponse: paymentResponse,)));
-      }
-    } 
-    catch(e){
+    } catch (e) {
       print(e);
-      key.currentState.showSnackBar(SnackBar(content: Text(e.toString())));      // platformVersion = 'Failed to get platform version.'
+      key.currentState.showSnackBar(SnackBar(content: Text(e.toString())));
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
   }
+
+  TextEditingController _amount = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       key: key,
       appBar: AppBar(
         title: const Text('Plugin example app'),
       ),
-      body: Center(
-        child: RaisedButton(
-            onPressed:()=> initPlatformState(context), child: Text('Running on')),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: TextField(
+              controller: _amount,
+              decoration: InputDecoration(hintText: "Enter Amount"),
+            ),
+          ),
+          RaisedButton(
+              onPressed: () => startTheTransaction(context),
+              child: Text('Start Transaction')),
+
+          loading?CircularProgressIndicator(backgroundColor: Colors.blue,):Container()
+        ],
       ),
     );
   }
 }
-
 
 class txnSuccessful extends StatelessWidget {
   final Paytmresponse PaytmResponse;
@@ -75,20 +98,29 @@ class txnSuccessful extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Transaction Success",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
-          Lottie.asset("assets/payment-success.json",height: MediaQuery.of(context).size.height*0.5,repeat: true),
-          Text("Payment Status:${PaytmResponse.status}",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),),
-          Text("Bank TransactionId:${PaytmResponse.banktxnid}",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),textAlign: TextAlign.center,)
-
+          Text(
+            "Transaction Success",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
+          Lottie.asset("assets/payment-success.json",
+              height: MediaQuery.of(context).size.height * 0.5, repeat: true),
+          Text(
+            "Payment Status:${PaytmResponse.status}",
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+          ),
+          Text(
+            "Bank TransactionId:${PaytmResponse.banktxnid}",
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );
   }
-
 }
 
 class txnFailed extends StatelessWidget {
- final Paytmresponse PaytmResponse;
+  final Paytmresponse PaytmResponse;
 
   const txnFailed({Key key, this.PaytmResponse}) : super(key: key);
 
@@ -98,13 +130,21 @@ class txnFailed extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Transaction Failed",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+          Text(
+            "Transaction Failed",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
           Container(
-              child: Lottie.asset("assets/payment-failed.json",height: MediaQuery.of(context).size.height*0.5,repeat: true)),
-          Text(PaytmResponse.respmsg,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),textAlign: TextAlign.center,)
+              child: Lottie.asset("assets/payment-failed.json",
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  repeat: true)),
+          Text(
+            PaytmResponse.respmsg,
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );
   }
 }
-

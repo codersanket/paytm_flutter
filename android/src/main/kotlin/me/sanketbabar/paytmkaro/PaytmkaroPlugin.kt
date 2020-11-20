@@ -85,7 +85,7 @@ class PaytmkaroPlugin:FlutterPlugin, MethodCallHandler, ActivityAware, PluginReg
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
     plugin.onActivityResult(requestCode,resultCode,data)
-    return  false
+    return  true
   }
 
 }

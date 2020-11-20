@@ -53,7 +53,7 @@ class AllInOneSDKPlugin(var activity: Activity, var call: MethodCall, var result
         val transactionManager = TransactionManager(paytmOrder, object : PaytmPaymentTransactionCallback {
             override fun onTransactionResponse(bundle: Bundle) {
                 //Return in both cases if transaction is success or failure
-                setResult("Payment Transaction response $bundle", true)
+                setResult("$bundle", true)
             }
             override fun networkNotAvailable() {
                 setResult("networkNotAvailable", false)

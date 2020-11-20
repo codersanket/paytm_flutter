@@ -1,3 +1,2 @@
-## 0.0.1
-
-##1.0.2 added staging support
+## 1.1.0 
+Staging Support Added

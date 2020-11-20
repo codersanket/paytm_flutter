@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="868cf4e1-bf25-493d-a020-285b57bebaae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/me/sanketbabar/paytmkaro/AllInOneSDKPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/me/sanketbabar/paytmkaro/AllInOneSDKPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/me/sanketbabar/paytmkaro/PaytmkaroPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/me/sanketbabar/paytmkaro/PaytmkaroPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/paytmkaro.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/paytmkaro.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
